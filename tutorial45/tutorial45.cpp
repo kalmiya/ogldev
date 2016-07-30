@@ -233,9 +233,12 @@ public:
     }
     
              
-    virtual void KeyboardCB(OGLDEV_KEY OgldevKey)
-    {
-        switch (OgldevKey) {
+	virtual void KeyboardCB(OGLDEV_KEY OgldevKey, OGLDEV_KEY_STATE OgldevKeyState = OGLDEV_KEY_STATE_PRESS)
+	{
+		if (OgldevKeyState != OGLDEV_KEY_STATE_PRESS) // don't react on key-up
+			return;
+
+		switch (OgldevKey) {
             case OGLDEV_KEY_ESCAPE:
             case OGLDEV_KEY_q:
                 OgldevBackendLeaveMainLoop();
